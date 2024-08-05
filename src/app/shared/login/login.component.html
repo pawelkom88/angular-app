@@ -1,0 +1,26 @@
+<h1>Gamers Paradise</h1>
+<br />
+<form (ngSubmit)="loginUser()" [formGroup]="loginForm">
+  <label for="username">Email</label>
+  <input
+    id="username"
+    name="username"
+    type="email"
+    autocomplete="email"
+    placeholder="Email"
+    formControlName="username"
+  />
+  <label for="password">Password</label>
+  <input
+    id="password"
+    name="password"
+    type="password"
+    autocomplete="current-password"
+    placeholder="Password"
+    formControlName="password"
+  />
+  <strong *ngIf="errorMessage" class="error-message">{{ errorMessage }}</strong>
+  <button [disabled]="!loginForm.valid" class="primary" type="submit">
+    Login
+  </button>
+</form>

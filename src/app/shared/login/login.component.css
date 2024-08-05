@@ -1,0 +1,21 @@
+input[type="email"],
+input[type="password"] {
+  display: block;
+  margin-top: 2px;
+  padding: 0.5rem 1rem;
+}
+
+input[type="email"] {
+  margin-bottom: 1rem;
+}
+
+button {
+  margin-top: 1rem;
+}
+
+.error-message {
+  display: block;
+  text-align: center;
+  margin-top: 0.5rem;
+  color: red;
+}

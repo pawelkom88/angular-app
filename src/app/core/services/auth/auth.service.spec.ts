@@ -51,7 +51,7 @@ describe('AuthService', () => {
       password: 'Paw123!',
     };
 
-    service.login(userCredentials).subscribe((user) => {
+    service.findUser(userCredentials).subscribe((user) => {
       expect(user).toEqual(mockUser);
     });
 
@@ -64,7 +64,7 @@ describe('AuthService', () => {
   it('the login method should throw an error if the credentials are invalid.', () => {
     const userCredentials = { username: 'paw@2132.io', password: 'Paw123!' };
 
-    service.login(userCredentials).subscribe({
+    service.findUser(userCredentials).subscribe({
       error: (error) => expect(error).toBe('Invalid username or password'),
     });
 
@@ -78,7 +78,7 @@ describe('AuthService', () => {
   it('the login method should throw an error if there is a network error', () => {
     const userCredentials = { username: 'paw@2132.io', password: 'Paw123!' };
 
-    service.login(userCredentials).subscribe({
+    service.findUser(userCredentials).subscribe({
       error: (error) => expect(error).toBe('Server error'),
     });
 
@@ -93,7 +93,7 @@ describe('AuthService', () => {
   it("the logout method should remove the user's authentication token from local storage and navigate to the login page.", () => {
     localStorage.setItem('userId', '1');
 
-    service.logout();
+    service.logoutUser();
 
     expect(localStorageSpy).toHaveBeenCalledWith('userId');
     expect(router.navigate).toHaveBeenCalledWith([RoutePathsConfig.login]);

@@ -14,7 +14,7 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  login({ username, password }: UserCredentials): Observable<User> {
+  findUser({ username, password }: UserCredentials): Observable<User> {
     return this.http.get<User[]>(`${this.apiUrl}/users`).pipe(
       map((users: User[]) => {
         const user = users.find(
@@ -43,12 +43,12 @@ export class AuthService {
     );
   }
 
-  logout(): void {
+  logoutUser(): void {
     localStorage.removeItem('userId');
     this.router.navigate([RoutePathsConfig.login]);
   }
 
-  isLoggedIn(): boolean {
+  isUserLoggedIn(): boolean {
     return !!localStorage.getItem('userId');
   }
 }

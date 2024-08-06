@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { RoutePathsConfig } from '../../../app.routes';
 import { AuthGuard } from './auth-guard.guard';
 import { AuthService } from './auth.service';
-import { RoutePathsConfig } from '../../../app.routes';
 
 describe('AuthGuard', () => {
   let guard: AuthGuard;
@@ -29,7 +29,7 @@ describe('AuthGuard', () => {
   });
 
   it('should allow access when the user is authenticated', () => {
-    (authService.isLoggedIn as jest.Mock).mockReturnValue(true);
+    (authService.isUserLoggedIn as jest.Mock).mockReturnValue(true);
 
     const result = guard.canActivate();
 
@@ -38,7 +38,7 @@ describe('AuthGuard', () => {
   });
 
   it('should deny access and redirect to /login when the user is not authenticated', () => {
-    (authService.isLoggedIn as jest.Mock).mockReturnValue(false);
+    (authService.isUserLoggedIn as jest.Mock).mockReturnValue(false);
 
     const result = guard.canActivate();
 

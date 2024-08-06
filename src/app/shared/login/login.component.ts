@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: ['', [Validators.required]],
     });
 
-    if (this.authService.isLoggedIn()) {
+    if (this.authService.isUserLoggedIn()) {
       this.router.navigate([RoutePathsConfig.games]);
     }
   }
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.errorMessage = '';
 
     this.authSubscription = this.authService
-      .login({
+      .findUser({
         username,
         password,
       } as UserCredentials)

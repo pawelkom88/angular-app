@@ -13,6 +13,6 @@ export class GamesListComponent {
   constructor(private authService: AuthService) {}
 
   logout() {
-    this.authService.logout();
+    this.authService.logoutUser();
   }
 }

@@ -1,1 +1,32 @@
-<p>signup works!</p>
+<h1>Gamers Paradise</h1>
+<br />
+  <form (ngSubmit)="createUser()" [formGroup]="signUpForm">
+  <label for="username">Email</label>
+  <input
+    id="username"
+    name="username"
+    type="email"
+    autocomplete="email"
+    placeholder="Email"
+    formControlName="username"
+  />
+  <label for="password">Password</label>
+  <input
+    id="password"
+    name="password"
+    type="password"
+    autocomplete="current-password"
+    placeholder="Password"
+    formControlName="password"
+  />
+  <!-- <strong *ngIf="errorMessage" class="error-message">{{
+    this.errorMessage
+  }}</strong> -->
+  <button class="primary" type="submit">Sign up</button>
+  <!-- <button [disabled]="!signUpForm.valid" class="primary" type="submit">
+    Login
+  </button> -->
+</form>
+<br />
+<!--  TODO: implement route config path -->
+<p>Have an account? <a class="link" routerLink="/login">Login</a></p>

@@ -19,3 +19,9 @@ button {
   margin-top: 0.5rem;
   color: red;
 }
+
+.link {
+  text-decoration: underline;
+  color: var(--primary-color);
+  cursor: pointer;
+}

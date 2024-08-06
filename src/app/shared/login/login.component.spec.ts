@@ -73,7 +73,7 @@ describe('LoginComponent', () => {
 
   it('should display error message if username is invalid', () => {
     jest
-      .spyOn(service, 'login')
+      .spyOn(service, 'findUser')
       .mockReturnValue(
         throwError(() => new Error('Invalid username or password'))
       );

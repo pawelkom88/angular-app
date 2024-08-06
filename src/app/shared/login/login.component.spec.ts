@@ -9,7 +9,6 @@ import { provideHttpClient } from '@angular/common/http';
 
 describe('LoginComponent', () => {
   let service: AuthService;
-  // let httpMock: HttpTestingController;
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let debugElement: DebugElement;
@@ -24,7 +23,6 @@ describe('LoginComponent', () => {
     }).compileComponents();
 
     service = TestBed.inject(AuthService);
-    // httpMock = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;

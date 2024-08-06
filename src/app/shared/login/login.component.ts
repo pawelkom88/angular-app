@@ -6,7 +6,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { RoutePathsConfig } from '../../app.routes';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { UserCredentials } from '../../core/services/auth/auth.types';
 
@@ -17,12 +19,13 @@ import { UserCredentials } from '../../core/services/auth/auth.types';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup = new FormGroup({});
-  private authSubscription: Subscription = new Subscription();
+  errorMessage = '';
 
+  private authSubscription: Subscription = new Subscription();
   constructor(
+    private router: Router,
     private formBuilder: FormBuilder,
     private authService: AuthService
   ) {}
@@ -32,12 +35,15 @@ export class LoginComponent implements OnInit, OnDestroy {
       username: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
+
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate([RoutePathsConfig.games]);
+    }
   }
-  
-  
-  errorMessage = '';
+
   loginUser() {
     const { username, password } = this.loginForm.value;
+    this.errorMessage = '';
 
     this.authSubscription = this.authService
       .login({
@@ -45,8 +51,10 @@ export class LoginComponent implements OnInit, OnDestroy {
         password,
       } as UserCredentials)
       .subscribe({
-        next: ({ token }) => localStorage.setItem('token', token),
-        error: (error) => (this.errorMessage = error.message),
+        next: () => this.router.navigate([RoutePathsConfig.games]),
+        error: (error: Error) => {
+          this.errorMessage = error.message;
+        },
       });
   }
 

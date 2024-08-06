@@ -19,7 +19,7 @@
     placeholder="Password"
     formControlName="password"
   />
-  <strong *ngIf="errorMessage" class="error-message">{{ errorMessage }}</strong>
+  <strong *ngIf="errorMessage" class="error-message">{{ this.errorMessage }}</strong>
   <button [disabled]="!loginForm.valid" class="primary" type="submit">
     Login
   </button>

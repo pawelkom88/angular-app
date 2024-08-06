@@ -1,8 +1,8 @@
 export type UserCredentials = {
-    username: string;
-    password: string;
-}
+  username: string;
+  password: string;
+};
 
-export type Token = {
-    token: string
+export interface User extends UserCredentials {
+  id: number;
 }

@@ -16,6 +16,7 @@ describe('SignupComponent', () => {
   let debugElement: DebugElement;
   let usernameInputElement: HTMLInputElement;
   let passwordInputElement: HTMLInputElement;
+  let confirmPasswordInputElement: HTMLInputElement;
   let signupButton: HTMLButtonElement;
 
   beforeEach(async () => {
@@ -33,12 +34,16 @@ describe('SignupComponent', () => {
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
     fixture.detectChanges();
-    
+
     usernameInputElement = debugElement.nativeElement.querySelector(
       'input[name="username"]'
     );
     passwordInputElement = debugElement.nativeElement.querySelector(
       'input[name="password"]'
+    );
+
+    confirmPasswordInputElement = debugElement.nativeElement.querySelector(
+      'input[name="confirm-password"]'
     );
 
     signupButton = debugElement.nativeElement.querySelector(
@@ -51,9 +56,16 @@ describe('SignupComponent', () => {
     usernameInputElement.dispatchEvent(new Event('input'));
     passwordInputElement.value = 'Password123';
     passwordInputElement.dispatchEvent(new Event('input'));
+    confirmPasswordInputElement.value = 'Password123';
+    confirmPasswordInputElement.dispatchEvent(new Event('input'));
     fixture.detectChanges();
 
     expect(usernameInputElement.value).toBe('test@example');
     expect(passwordInputElement.value).toBe('Password123');
+    expect(confirmPasswordInputElement.value).toBe('Password123');
+  });
+
+  it('email input should', () => {
+
   });
 });

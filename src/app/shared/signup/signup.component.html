@@ -1,6 +1,6 @@
 <h1>Gamers Paradise</h1>
 <br />
-  <form (ngSubmit)="createUser()" [formGroup]="signUpForm">
+<form class="signup" (ngSubmit)="createUser()" [formGroup]="signUpForm">
   <label for="username">Email</label>
   <input
     id="username"
@@ -15,9 +15,18 @@
     id="password"
     name="password"
     type="password"
-    autocomplete="current-password"
+    autocomplete="new-password"
     placeholder="Password"
     formControlName="password"
+  />
+  <label for="confirm-password">Confirm password</label>
+  <input
+    id="confirm-password"
+    name="confirm-password"
+    type="password"
+    autocomplete="new-password"
+    placeholder="Confirm password"
+    formControlName="confirm-password"
   />
   <!-- <strong *ngIf="errorMessage" class="error-message">{{
     this.errorMessage
@@ -29,4 +38,6 @@
 </form>
 <br />
 <!--  TODO: implement route config path -->
-<p>Have an account? <a class="link" routerLink="/login">Login</a></p>
+<p class="login-link">
+  Have an account? <a class="link" routerLink="/login">Login</a>
+</p>

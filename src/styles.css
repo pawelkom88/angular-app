@@ -12,12 +12,34 @@
   --shadow-color: #e8e8e8;
 }
 
+input[type="email"],
+input[type="password"] {
+  display: block;
+  margin-top: 0.1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+.error-message {
+  display: block;
+  text-align: center;
+  margin-top: 0.5rem;
+  color: red;
+}
+
+.link {
+  text-decoration: underline;
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
 button.primary {
   padding: 10px;
   border: solid 1px var(--primary-color);
   background: var(--primary-color);
   color: white;
   border-radius: 8px;
+  margin-top: .5rem;
   cursor: pointer;
 
   &:hover {

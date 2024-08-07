@@ -31,20 +31,23 @@ export class SignupComponent {
   ngOnInit() {
     this.signUpForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.email]],
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(6),
-          Validators.pattern(
-            '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$'
-          ),
-        ],
-      ],
+      password: ['', checkPasswordValidation()],
+      confirmPassword: ['', checkPasswordValidation()],
     });
   }
 
-  createUser(){
-    
+  createUser() {
+    return;
   }
+}
+
+// move to helpers
+function checkPasswordValidation() {
+  return [
+    Validators.required,
+    Validators.minLength(6),
+    Validators.pattern(
+      '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$'
+    ),
+  ];
 }

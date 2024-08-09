@@ -12,6 +12,8 @@ export const RoutePathsConfig = {
   notFound: '**',
 } as const;
 
+export type RoutePath = typeof RoutePathsConfig[keyof typeof RoutePathsConfig]
+
 export const routes: Routes = [
   { path: RoutePathsConfig.login, title: 'Login', component: LoginComponent },
   {

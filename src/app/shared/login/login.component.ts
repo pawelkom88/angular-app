@@ -8,9 +8,9 @@ import {
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { RoutePathsConfig } from '../../app.routes';
-import { AuthService } from '../../core/services/auth/auth.service';
-import { UserCredentials } from '../../core/services/auth/auth.types';
+import { RoutePathsConfig } from '@/app/app.routes';
+import { AuthService } from '@core/services/auth/auth.service';
+import { UserCredentials } from '@core/services/auth/auth.types';
 
 @Component({
   selector: 'app-login',
@@ -35,10 +35,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       username: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
-
-    if (this.authService.isUserLoggedIn()) {
-      this.router.navigate([RoutePathsConfig.games]);
-    }
   }
 
   loginUser() {

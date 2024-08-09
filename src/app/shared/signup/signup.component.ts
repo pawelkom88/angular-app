@@ -1,3 +1,5 @@
+import { RoutePath, RoutePathsConfig } from '@/app/app.routes';
+import { UserCredentials } from '@/app/core/services/auth/auth.types';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
@@ -7,8 +9,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '@core/services/auth/auth.service';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -20,6 +22,7 @@ import { AuthService } from '../../core/services/auth/auth.service';
 export class SignupComponent {
   signUpForm: FormGroup = new FormGroup({});
   errorMessage = '';
+  successMessage = '';
 
   private authSubscription: Subscription = new Subscription();
   constructor(
@@ -36,12 +39,34 @@ export class SignupComponent {
     });
   }
 
-  createUser() {
-    return;
+  navigateToPathWithDelay(path: RoutePath, delay = 2000) {
+    setTimeout(() => {
+      this.router.navigate([path]);
+    }, delay);
+  }
+
+  signUpUser() {
+    const { username, password } = this.signUpForm.value;
+
+    this.authSubscription = this.authService
+      .createUser({
+        username,
+        password,
+      } as UserCredentials)
+      .subscribe({
+        next: () => {
+          this.successMessage = 'User created successfully';
+          this.navigateToPathWithDelay(RoutePathsConfig.login);
+          this.signUpForm.reset();
+        },
+        error: (error: Error) => {
+          this.errorMessage = error.message;
+        },
+      });
   }
 }
 
-// move to helpers
+// move to helpers - does not work
 function checkPasswordValidation() {
   return [
     Validators.required,

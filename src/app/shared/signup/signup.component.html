@@ -1,6 +1,6 @@
 <h1>Gamers Paradise</h1>
 <br />
-<form class="signup" (ngSubmit)="createUser()" [formGroup]="signUpForm">
+<form class="signup" (ngSubmit)="signUpUser()" [formGroup]="signUpForm">
   <label for="username">Email</label>
   <input
     id="username"
@@ -28,9 +28,9 @@
     placeholder="Confirm password"
     formControlName="confirmPassword"
   />
-  <!-- <strong *ngIf="errorMessage" class="error-message">{{
-    this.errorMessage
-  }}</strong> -->
+  <strong *ngIf="successMessage" class="success-message">{{
+    this.successMessage
+  }}</strong>
   <button class="primary" type="submit">Sign up</button>
   <!-- <button [disabled]="!signUpForm.valid" class="primary" type="submit">
     Login

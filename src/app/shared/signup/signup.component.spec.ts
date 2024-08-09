@@ -5,8 +5,10 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { DebugElement } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideRouter } from '@angular/router';
+import { Observable } from 'rxjs';
 import { routes } from '../../app.routes';
 import { AuthService } from '../../core/services/auth/auth.service';
+import { User } from '../../core/services/auth/auth.types';
 import { SignupComponent } from './signup.component';
 
 describe('SignupComponent', () => {
@@ -18,6 +20,7 @@ describe('SignupComponent', () => {
   let passwordInputElement: HTMLInputElement;
   let confirmPasswordInputElement: HTMLInputElement;
   let signupButton: HTMLButtonElement;
+  let successMessageElement: HTMLElement;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -26,6 +29,10 @@ describe('SignupComponent', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         provideRouter(routes),
+        {
+          provide: AuthService,
+          useValue: { createUser: jest.fn() },
+        },
       ],
     }).compileComponents();
 
@@ -65,7 +72,34 @@ describe('SignupComponent', () => {
     expect(confirmPasswordInputElement.value).toBe('Password123');
   });
 
-  it('email input should', () => {
+  it.only('form should be successfully submitted if all fields are valid', () => {
+    const mockUser: User = {
+      id: 2,
+      username: 'pawel@2132.io',
+      password: 'Paw123!',
+    };
 
+    usernameInputElement.value = 'test@example';
+    usernameInputElement.dispatchEvent(new Event('input'));
+    passwordInputElement.value = 'Password123!';
+    passwordInputElement.dispatchEvent(new Event('input'));
+    confirmPasswordInputElement.value = 'Password123!';
+    confirmPasswordInputElement.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    signupButton.click();
+    expect(component.signUpForm.valid).toBeTruthy();
+
+    jest.spyOn(service, 'createUser').mockReturnValue(
+      new Observable((subscriber) => {
+        subscriber.next(mockUser);
+      })
+    );
+
+    component.signUpUser();
+    fixture.detectChanges();
+    // check for this scenario
+    successMessageElement =  debugElement.nativeElement.querySelector('.success-message');
+
+    expect(successMessageElement).toBeTruthy();
   });
 });

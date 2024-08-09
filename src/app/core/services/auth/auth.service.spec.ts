@@ -1,4 +1,5 @@
 import { RoutePathsConfig } from '@/app/app.routes';
+import { environment } from '@/environments/environment.development';
 import { provideHttpClient } from '@angular/common/http';
 import {
   HttpTestingController,
@@ -8,7 +9,6 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { User, UserCredentials } from './auth.types';
-import { environment } from '@/environments/environment.development';
 // NEED FIXING
 describe('AuthService', () => {
   let service: AuthService;
@@ -103,13 +103,13 @@ describe('AuthService', () => {
 
   it('the signup method should create a new user n db.json and navigate to the login page.', () => {
     const userCredentials: UserCredentials = {
-      username: 'pawel@2132.io',
+      username: 'pawel@test.com',
       password: 'Paw123!',
     };
 
     const mockUser: User = {
       id: 2,
-      username: 'pawel@2132.io',
+      username: 'pawel@test.com',
       password: 'Paw123!',
     };
 

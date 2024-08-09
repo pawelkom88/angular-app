@@ -75,7 +75,7 @@ describe('SignupComponent', () => {
   it('form should be successfully submitted if all fields are valid', () => {
     const mockUser: User = {
       id: 2,
-      username: 'pawel@2132.io',
+      username: 'pawel@test.com',
       password: 'Paw123!',
     };
 
@@ -98,7 +98,8 @@ describe('SignupComponent', () => {
     component.signUpUser();
     fixture.detectChanges();
     // check for this scenario
-    successMessageElement =  debugElement.nativeElement.querySelector('.success-message');
+    successMessageElement =
+      debugElement.nativeElement.querySelector('.success-message');
 
     expect(successMessageElement).toBeTruthy();
   });

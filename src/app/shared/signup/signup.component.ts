@@ -64,6 +64,12 @@ export class SignupComponent {
         },
       });
   }
+
+  ngOnDestroy() {
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
+    }
+  }
 }
 
 // move to helpers - does not work

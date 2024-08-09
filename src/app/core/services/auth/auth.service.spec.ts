@@ -42,13 +42,13 @@ describe('AuthService', () => {
   // Test if the AuthService is created successfully
   it('the login method should authenticate a user with valid credentials and return the user.', () => {
     const userCredentials: UserCredentials = {
-      username: 'paw@2132.io',
+      username: 'paw@test.com',
       password: 'Paw123!',
     };
 
     const mockUser: User = {
       id: 1,
-      username: 'paw@2132.io',
+      username: 'paw@test.com',
       password: 'Paw123!',
     };
 
@@ -63,7 +63,7 @@ describe('AuthService', () => {
   });
 
   it('the login method should throw an error if the credentials are invalid.', () => {
-    const userCredentials = { username: 'paw@2132.io', password: 'Paw123!' };
+    const userCredentials = { username: 'paw@test.com', password: 'Paw123!' };
 
     service.findUser(userCredentials).subscribe({
       error: (error) => expect(error).toBe('Invalid username or password'),
@@ -78,7 +78,7 @@ describe('AuthService', () => {
   });
 
   it('the login method should throw an error if there is a network error', () => {
-    const userCredentials = { username: 'paw@2132.io', password: 'Paw123!' };
+    const userCredentials = { username: 'paw@test.com', password: 'Paw123!' };
 
     service.findUser(userCredentials).subscribe({
       error: (error) => expect(error).toBe('Server error'),

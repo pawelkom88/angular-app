@@ -1,4 +1,4 @@
 {
-  "users": [{ "id": 1, "username": "paw@2132.io", "password": "Paw123!" }],
+  "users": [{ "id": 1, "username": "paw@test.com", "password": "Paw123!" }],
   "games": []
 }

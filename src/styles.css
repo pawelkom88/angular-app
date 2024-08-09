@@ -20,11 +20,19 @@ input[type="password"] {
   padding: 0.5rem 1rem;
 }
 
-.error-message {
+.error-message,
+.success-message {
   display: block;
   text-align: center;
   margin-top: 0.5rem;
+}
+
+.error-message {
   color: red;
+}
+
+.success-message {
+  color: green;
 }
 
 .link {
@@ -39,7 +47,7 @@ button.primary {
   background: var(--primary-color);
   color: white;
   border-radius: 8px;
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   cursor: pointer;
 
   &:hover {

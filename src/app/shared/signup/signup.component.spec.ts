@@ -72,7 +72,7 @@ describe('SignupComponent', () => {
     expect(confirmPasswordInputElement.value).toBe('Password123');
   });
 
-  it.only('form should be successfully submitted if all fields are valid', () => {
+  it('form should be successfully submitted if all fields are valid', () => {
     const mockUser: User = {
       id: 2,
       username: 'pawel@2132.io',

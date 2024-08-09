@@ -1,3 +1,4 @@
+import { RoutePathsConfig } from '@/app/app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import {
   HttpTestingController,
@@ -5,10 +6,10 @@ import {
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { RoutePathsConfig } from '../../../app.routes';
 import { AuthService } from './auth.service';
 import { User, UserCredentials } from './auth.types';
-
+import { environment } from '@/environments/environment.development';
+// NEED FIXING
 describe('AuthService', () => {
   let service: AuthService;
   let httpMock: HttpTestingController;
@@ -22,7 +23,6 @@ describe('AuthService', () => {
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
-        AuthService,
         { provide: Router, useValue: routerMock },
       ],
     });
@@ -45,6 +45,7 @@ describe('AuthService', () => {
       username: 'paw@2132.io',
       password: 'Paw123!',
     };
+
     const mockUser: User = {
       id: 1,
       username: 'paw@2132.io',
@@ -55,7 +56,7 @@ describe('AuthService', () => {
       expect(user).toEqual(mockUser);
     });
 
-    const request = httpMock.expectOne(service.apiUrl + '/users');
+    const request = httpMock.expectOne(environment.apiUrl + '/users');
     expect(request.request.method).toBe('GET');
 
     request.flush(mockUser);
@@ -68,13 +69,14 @@ describe('AuthService', () => {
       error: (error) => expect(error).toBe('Invalid username or password'),
     });
 
-    const request = httpMock.expectOne(service.apiUrl + '/users');
+    const request = httpMock.expectOne(environment.apiUrl + '/users');
 
     request.flush(
       { message: 'Invalid username or password' },
       { status: 401, statusText: 'Unauthorized' }
     );
   });
+
   it('the login method should throw an error if there is a network error', () => {
     const userCredentials = { username: 'paw@2132.io', password: 'Paw123!' };
 
@@ -82,7 +84,7 @@ describe('AuthService', () => {
       error: (error) => expect(error).toBe('Server error'),
     });
 
-    const request = httpMock.expectOne(service.apiUrl + '/users');
+    const request = httpMock.expectOne(environment.apiUrl + '/users');
 
     request.flush(
       { message: 'Server error' },
@@ -97,5 +99,28 @@ describe('AuthService', () => {
 
     expect(localStorageSpy).toHaveBeenCalledWith('userId');
     expect(router.navigate).toHaveBeenCalledWith([RoutePathsConfig.login]);
+  });
+
+  it('the signup method should create a new user n db.json and navigate to the login page.', () => {
+    const userCredentials: UserCredentials = {
+      username: 'pawel@2132.io',
+      password: 'Paw123!',
+    };
+
+    const mockUser: User = {
+      id: 2,
+      username: 'pawel@2132.io',
+      password: 'Paw123!',
+    };
+
+    service.createUser(userCredentials).subscribe((user) => {
+      expect(mockUser).toContainEqual(user);
+    });
+
+    const request = httpMock.expectOne(environment.apiUrl + '/users');
+    expect(request.request.method).toBe('POST');
+    expect(request.request.body).toEqual(userCredentials);
+
+    request.flush(mockUser);
   });
 });

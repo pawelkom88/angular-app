@@ -22,8 +22,10 @@ input[type="password"] {
 
 .error-message,
 .success-message {
+  max-width: 12rem;
+  font-size: 0.8rem;
+  text-align: justify;
   display: block;
-  text-align: center;
   margin-top: 0.5rem;
 }
 

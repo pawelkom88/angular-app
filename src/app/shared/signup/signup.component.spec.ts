@@ -10,6 +10,8 @@ import { routes } from '../../app.routes';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { User } from '../../core/services/auth/auth.types';
 import { SignupComponent } from './signup.component';
+import { PASSWORD_MIN_LENGTH } from './constants';
+import { fillInputField } from '../utils/helpers';
 
 describe('SignupComponent', () => {
   let service: AuthService;
@@ -21,6 +23,7 @@ describe('SignupComponent', () => {
   let confirmPasswordInputElement: HTMLInputElement;
   let signupButton: HTMLButtonElement;
   let successMessageElement: HTMLElement;
+  let errorMessageElement: HTMLElement;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -58,20 +61,6 @@ describe('SignupComponent', () => {
     );
   });
 
-  it('should bind the form controls to the input elements', () => {
-    usernameInputElement.value = 'test@example';
-    usernameInputElement.dispatchEvent(new Event('input'));
-    passwordInputElement.value = 'Password123';
-    passwordInputElement.dispatchEvent(new Event('input'));
-    confirmPasswordInputElement.value = 'Password123';
-    confirmPasswordInputElement.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-
-    expect(usernameInputElement.value).toBe('test@example');
-    expect(passwordInputElement.value).toBe('Password123');
-    expect(confirmPasswordInputElement.value).toBe('Password123');
-  });
-
   it('form should be successfully submitted if all fields are valid', () => {
     const mockUser: User = {
       id: 2,
@@ -79,12 +68,9 @@ describe('SignupComponent', () => {
       password: 'Paw123!',
     };
 
-    usernameInputElement.value = 'test@example';
-    usernameInputElement.dispatchEvent(new Event('input'));
-    passwordInputElement.value = 'Password123!';
-    passwordInputElement.dispatchEvent(new Event('input'));
-    confirmPasswordInputElement.value = 'Password123!';
-    confirmPasswordInputElement.dispatchEvent(new Event('input'));
+    fillInputField(usernameInputElement, 'pawel@test.com');
+    fillInputField(passwordInputElement, 'Paw123!');
+    fillInputField(confirmPasswordInputElement, 'Paw123!');
     fixture.detectChanges();
     signupButton.click();
     expect(component.signUpForm.valid).toBeTruthy();
@@ -97,10 +83,40 @@ describe('SignupComponent', () => {
 
     component.signUpUser();
     fixture.detectChanges();
-    // check for this scenario
-    successMessageElement =
-      debugElement.nativeElement.querySelector('.success-message');
+
+    successMessageElement = debugElement.nativeElement.querySelector('.success-message');
 
     expect(successMessageElement).toBeTruthy();
   });
+
+  it('form should show correct error message if form is not valid', () => {
+    signupButton.click();
+    fixture.detectChanges();
+
+    errorMessageElement = debugElement.nativeElement.querySelector('.error-message');
+    expect(errorMessageElement.textContent).toEqual('Please fill in the form.');
+  });
+
+  it('form should show correct error message if email is not valid', () => {
+    fillInputField(usernameInputElement, 'test');
+    component.signUpForm.markAllAsTouched();
+    signupButton.click();
+    fixture.detectChanges();
+
+    errorMessageElement = debugElement.nativeElement.querySelector('.error-message');
+    expect(errorMessageElement.textContent).toEqual('Please enter a valid email address.');
+  });
+
+  it('form should show correct error message if password is in wrong format', () => {
+    component.signUpForm.markAllAsTouched();
+    fillInputField(usernameInputElement, 'test@example');
+    fillInputField(passwordInputElement, 'pass');
+    fillInputField(confirmPasswordInputElement, 'pass');
+    signupButton.click();
+    fixture.detectChanges();
+
+    errorMessageElement = debugElement.nativeElement.querySelector('.error-message');
+    expect(errorMessageElement.textContent).toContain(`Password must be at least ${PASSWORD_MIN_LENGTH} characters long.`);
+  });
 });
+

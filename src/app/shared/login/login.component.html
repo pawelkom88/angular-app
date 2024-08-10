@@ -1,31 +1,41 @@
-<h1>Gamers Paradise</h1>
-<br />
-<form (ngSubmit)="loginUser()" [formGroup]="loginForm">
-  <label for="username">Email</label>
-  <input
-    id="username"
-    name="username"
-    type="email"
-    autocomplete="email"
-    placeholder="Email"
-    formControlName="username"
+<div class="login-wrapper">
+  <h1>Welcome to Gamers Paradise</h1>
+  <img
+    class="logo"
+    src="/logo.webp"
+    width="240"
+    height="200"
+    placeholder="data:image/png;base64"
+    alt="Games paradise logo"
   />
-  <label for="password">Password</label>
-  <input
-    id="password"
-    name="password"
-    type="password"
-    autocomplete="current-password"
-    placeholder="Password"
-    formControlName="password"
-  />
-  <app-error-message
-    *ngIf="errorMessage"
-    [errorMessage]="errorMessage"
-  ></app-error-message>
-  <button [disabled]="!loginForm.valid" class="primary" type="submit">
-    Login
-  </button>
-</form>
-<br />
-<p>Don't have an account? <a class="link" routerLink="/signup">Sign up</a></p>
+  <br />
+  <form (ngSubmit)="loginUser()" [formGroup]="loginForm">
+    <label for="username">Email</label>
+    <input
+      id="username"
+      name="username"
+      type="email"
+      autocomplete="email"
+      placeholder="Email"
+      formControlName="username"
+    />
+    <label for="password">Password</label>
+    <input
+      id="password"
+      name="password"
+      type="password"
+      autocomplete="current-password"
+      placeholder="Password"
+      formControlName="password"
+    />
+    <app-error-message
+      *ngIf="errorMessage"
+      [errorMessage]="errorMessage"
+    ></app-error-message>
+    <button [disabled]="!loginForm.valid" class="primary" type="submit">
+      Login
+    </button>
+  </form>
+  <br />
+  <p>Don't have an account? <a class="link" routerLink="/signup">Sign up</a></p>
+</div>

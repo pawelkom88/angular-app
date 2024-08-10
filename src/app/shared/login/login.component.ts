@@ -1,5 +1,5 @@
 import { RoutePathsConfig } from '@/app/app.routes';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -7,15 +7,22 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '@core/services/auth/auth.service';
 import { Subscription } from 'rxjs';
-import { ErrorMessageComponent } from "../components/error-message/error-message.component";
+import { ErrorMessageComponent } from '../components/error-message/error-message.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, ErrorMessageComponent],
+  imports: [
+    NgOptimizedImage,
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
+    ErrorMessageComponent,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

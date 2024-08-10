@@ -13,6 +13,12 @@
     "test:coverage": "jest --coverage",
     "json-server": "json-server --watch db.json --port 3000"
   },
+  "assets": [
+    {
+      "glob": "**/*",
+      "input": "public"
+    }
+  ],
   "private": true,
   "jest": {
     "preset": "jest-preset-angular",

@@ -1,5 +1,5 @@
 .wrapper {
   display: grid;
   place-items: center;
-  min-height: 50dvh;
+  min-height: 80dvh;
 }

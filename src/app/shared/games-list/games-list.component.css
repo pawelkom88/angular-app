@@ -1,0 +1,7 @@
+.wrapper {
+  min-width: 50dvw;
+  min-height: 80dvh;
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  margin-top: 5rem;
+}

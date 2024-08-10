@@ -1,4 +1,16 @@
 {
   "users": [{ "id": 1, "username": "paw@test.com", "password": "Pawel123!" }],
-  "games": []
+  "games": [
+    {
+      "id": 1,
+      "image": {
+        "author": "Alejandro Escamilla",
+        "width": 200,
+        "height": 300,
+        "url": "https://picsum.photos/200/300"
+      },
+      "title": "Halo: The Master Chief Collection",
+      "price": 59.99
+    }
+  ]
 }

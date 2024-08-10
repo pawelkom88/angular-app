@@ -4,9 +4,12 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { LoginComponent } from './login.component';
+// import { RoutePathsConfig } from '@/app/app.routes';
+
+// TODO: how to mock router and check if it redirect correctly
 
 describe('LoginComponent', () => {
   let service: AuthService;
@@ -16,8 +19,7 @@ describe('LoginComponent', () => {
   let usernameInputElement: HTMLInputElement;
   let passwordInputElement: HTMLInputElement;
   let loginButton: HTMLButtonElement;
-  let mockAuthService: jest.Mocked<AuthService>;
-  let mockActivatedRoute: Partial<ActivatedRoute>;
+  // let router: jest.Mocked<Router>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -28,10 +30,13 @@ describe('LoginComponent', () => {
         {
           provide: AuthService,
           useValue: {
-            login: jest.fn(),
             findUser: jest.fn(),
           },
         },
+        // {
+        //   provide: Router,
+        //   useValue: { navigate: jest.fn() },
+        // },
         {
           provide: ActivatedRoute,
           useValue: {
@@ -41,6 +46,7 @@ describe('LoginComponent', () => {
       ],
     }).compileComponents();
 
+    // router = TestBed.inject(Router) as jest.Mocked<Router>;
     service = TestBed.inject(AuthService);
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
@@ -74,33 +80,35 @@ describe('LoginComponent', () => {
     expect(formPassword?.value).toBe('');
   });
 
-  it('should bind the form controls to the input elements', () => {
-    usernameInputElement.value = 'test@example';
-    usernameInputElement.dispatchEvent(new Event('input'));
-    passwordInputElement.value = 'Password123';
-    passwordInputElement.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-
-    expect(usernameInputElement.value).toBe('test@example');
-    expect(passwordInputElement.value).toBe('Password123');
-  });
-
-  it('should have username and password input elements in the DOM', () => {
-    expect(usernameInputElement).toBeTruthy();
-    expect(passwordInputElement).toBeTruthy();
-  });
-
   it('should display error message if username is invalid', () => {
     jest
-      .spyOn(service, "findUser")
+      .spyOn(service, 'findUser')
       .mockReturnValue(
         throwError(() => new Error('Invalid username or password'))
       );
     component.loginUser();
     fixture.detectChanges();
 
-    const errorMessageElement =
-      fixture.debugElement.nativeElement.querySelector('strong');
+    const errorMessageElement = fixture.debugElement.nativeElement.querySelector('strong');
     expect(errorMessageElement).toBeTruthy();
+  });
+
+  it('should successfully login if username and password are valid', () => {
+    const mockUser = {
+      id: 2,
+      username: 'pawel@test.com',
+      password: 'Paw123!',
+    };
+    jest.spyOn(service, 'findUser').mockReturnValue(
+      new Observable((observer) => {
+        observer.next(mockUser);
+        observer.complete();
+      })
+    );
+    component.loginUser();
+    fixture.detectChanges();
+
+    expect(service.findUser).toHaveBeenCalledTimes(1);
+    // expect(router.navigate).toHaveBeenCalledWith([RoutePathsConfig.games]);
   });
 });

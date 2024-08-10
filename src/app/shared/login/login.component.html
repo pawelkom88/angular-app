@@ -19,9 +19,10 @@
     placeholder="Password"
     formControlName="password"
   />
-  <strong *ngIf="errorMessage" class="error-message">{{
-    this.errorMessage
-  }}</strong>
+  <app-error-message
+    *ngIf="errorMessage"
+    [errorMessage]="errorMessage"
+  ></app-error-message>
   <button [disabled]="!loginForm.valid" class="primary" type="submit">
     Login
   </button>

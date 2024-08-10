@@ -1,3 +1,4 @@
+import { RoutePathsConfig } from '@/app/app.routes';
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
@@ -7,15 +8,14 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { RoutePathsConfig } from '@/app/app.routes';
 import { AuthService } from '@core/services/auth/auth.service';
-import { UserCredentials } from '@core/services/auth/auth.types';
+import { Subscription } from 'rxjs';
+import { ErrorMessageComponent } from "../components/error-message/error-message.component";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, ErrorMessageComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -31,10 +31,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
+    const formControls = {
       username: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
-    });
+    };
+
+    this.loginForm = this.formBuilder.group(formControls);
   }
 
   loginUser() {
@@ -45,14 +47,20 @@ export class LoginComponent implements OnInit, OnDestroy {
       .findUser({
         username,
         password,
-      } as UserCredentials)
+      })
       .subscribe({
-        next: () => this.router.navigate([RoutePathsConfig.games]),
-        error: (error: Error) => {
-          this.errorMessage = error.message;
-        },
+        next: this.handleRedirectAfterLogin,
+        error: this.handleLogInError,
       });
   }
+
+  private handleRedirectAfterLogin = () => {
+    this.router.navigate([RoutePathsConfig.games]);
+  };
+
+  private handleLogInError = (error: Error) => {
+    this.errorMessage = error.message;
+  };
 
   ngOnDestroy() {
     if (this.authSubscription) {

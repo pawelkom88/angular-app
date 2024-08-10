@@ -6,8 +6,8 @@
 }
 
 :root {
-  --primary-color: #605dc8;
-  --secondary-color: #8b89e6;
+  --primary-color: #2F3061;
+  --secondary-color: #5F5980;
   --accent-color: #e8e7fa;
   --shadow-color: #e8e8e8;
 }
@@ -22,17 +22,11 @@ input[type="password"] {
 
 .error-message,
 .success-message {
-  display: block;
+  max-width: 11rem;
+  font-size: 0.8rem;
   text-align: center;
+  display: block;
   margin-top: 0.5rem;
-}
-
-.error-message {
-  color: red;
-}
-
-.success-message {
-  color: green;
 }
 
 .link {

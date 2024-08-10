@@ -17,13 +17,11 @@ describe('AuthService', () => {
   let localStorageSpy: jest.SpyInstance;
 
   beforeEach(() => {
-    const routerMock = { navigate: jest.fn() };
-
     TestBed.configureTestingModule({
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
-        { provide: Router, useValue: routerMock },
+        { provide: Router, useValue: { navigate: jest.fn() } },
       ],
     });
 

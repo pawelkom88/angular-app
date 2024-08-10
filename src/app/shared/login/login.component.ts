@@ -12,6 +12,7 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '@core/services/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { ErrorMessageComponent } from '../components/error-message/error-message.component';
+import { LogoComponent } from '../components/logo/logo.component';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ import { ErrorMessageComponent } from '../components/error-message/error-message
     ReactiveFormsModule,
     RouterModule,
     ErrorMessageComponent,
+    LogoComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',

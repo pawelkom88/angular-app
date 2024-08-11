@@ -10,7 +10,7 @@ import { LogoComponent } from '../logo/logo.component';
   styleUrl: './nav.component.css',
 })
 export class NavComponent {
-  constructor(private authService: AuthService) {}
+  constructor(private readonly authService: AuthService) {}
 
   logout() {
     this.authService.logoutUser();

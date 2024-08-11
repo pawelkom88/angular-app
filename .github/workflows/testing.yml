@@ -1,4 +1,4 @@
-name: Unit tests
+name: CI Pipeline
 
 on: [push, pull_request]
 
@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x, 18.x, 16.x]
+        node-version: [20.x, 18.x]
 
     steps:
       - uses: actions/checkout@v3
@@ -20,3 +20,5 @@ jobs:
         run: npm ci
       - name: Run tests
         run: npm test
+      - name: Run TS check
+        run: npm run typecheck

@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private readonly authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -49,7 +49,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   loginUser() {
-    const { username, password } = this.loginForm.value;
+    const username = this.loginForm.value.username.trim();
+    const password = this.loginForm.value.password.trim();
+    
     this.errorMessage = '';
 
     this.authSubscription = this.authService

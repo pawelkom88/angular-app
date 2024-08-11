@@ -32,6 +32,7 @@ import {
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })
+
 export class SignupComponent {
   signUpForm: FormGroup = new FormGroup({});
   errorMessage = '';
@@ -77,7 +78,8 @@ export class SignupComponent {
       this.errorMessage = '';
     }
 
-    const { username, password } = this.signUpForm.value;
+    const username = this.signUpForm.value.username.trim();
+    const password = this.signUpForm.value.password.trim();
 
     this.authSubscription = this.authService
       .createUser({ username, password })

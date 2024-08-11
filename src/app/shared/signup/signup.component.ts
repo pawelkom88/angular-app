@@ -32,6 +32,7 @@ import {
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })
+
 export class SignupComponent {
   signUpForm: FormGroup = new FormGroup({});
   errorMessage = '';
@@ -57,7 +58,7 @@ export class SignupComponent {
     });
   }
 
-  private get passwordValidators(): any[] {
+  private get passwordValidators(): Validators[] {
     return [
       Validators.required,
       Validators.minLength(PASSWORD_MIN_LENGTH),
@@ -76,8 +77,9 @@ export class SignupComponent {
     } else {
       this.errorMessage = '';
     }
-
-    const { username, password } = this.signUpForm.value;
+console.log(this.signUpForm.valid)
+    const username = this.signUpForm.value.username.trim();
+    const password = this.signUpForm.value.password.trim();
 
     this.authSubscription = this.authService
       .createUser({ username, password })

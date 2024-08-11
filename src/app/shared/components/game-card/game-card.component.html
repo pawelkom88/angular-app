@@ -1,0 +1,18 @@
+<article class="game-card">
+  <h2 class="game-card_title">{{ game.title }}</h2>
+  <figure>
+    <img
+      src="{{ game.image.url }}"
+      width="{{ game.image.width }}"
+      height="{{ game.image.height }}"
+      alt=""
+      class="game-card_image"
+    />
+    <figcaption class="game-card_author">{{ game.image.author }}</figcaption>
+  </figure>
+  <p class="game-card_price">${{ game.price }}</p>
+  <p class="game-card_description">
+    {{ game.description }}
+  </p>
+  <a [routerLink]="['', 'game', game.id]" class="game-card_link">details</a>
+</article>

@@ -1,18 +1,15 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AuthService } from '@core/services/auth/auth.service';
+import { NavComponent } from '../components/nav/nav.component';
+import { ListComponent } from "../components/list/list.component";
 
 @Component({
   selector: 'app-games-list',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NavComponent, ListComponent],
   templateUrl: './games-list.component.html',
   styleUrl: './games-list.component.css',
 })
 export class GamesListComponent {
-  constructor(private authService: AuthService) {}
-
-  logout() {
-    this.authService.logoutUser();
-  }
+  constructor() {}
 }

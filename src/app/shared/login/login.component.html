@@ -1,13 +1,6 @@
 <div class="login-wrapper">
   <h1>Welcome to Gamers Paradise</h1>
-  <img
-    class="logo"
-    src="/logo.webp"
-    width="240"
-    height="200"
-    placeholder="data:image/png;base64"
-    alt="Games paradise logo"
-  />
+  <app-logo></app-logo>
   <br />
   <form (ngSubmit)="loginUser()" [formGroup]="loginForm">
     <label for="username">Email</label>

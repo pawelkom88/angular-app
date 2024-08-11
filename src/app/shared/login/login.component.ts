@@ -12,6 +12,7 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '@core/services/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { ErrorMessageComponent } from '../components/error-message/error-message.component';
+import { LogoComponent } from '../components/logo/logo.component';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ import { ErrorMessageComponent } from '../components/error-message/error-message
     ReactiveFormsModule,
     RouterModule,
     ErrorMessageComponent,
+    LogoComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -34,7 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private readonly authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -47,7 +49,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   loginUser() {
-    const { username, password } = this.loginForm.value;
+    const username = this.loginForm.value.username.trim();
+    const password = this.loginForm.value.password.trim();
+    
     this.errorMessage = '';
 
     this.authSubscription = this.authService

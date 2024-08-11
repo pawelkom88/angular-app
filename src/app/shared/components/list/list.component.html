@@ -1,0 +1,6 @@
+<main>
+  <app-game-card
+    *ngFor="let game of games; track: game.id"
+    [game]="game"
+  ></app-game-card>
+</main>

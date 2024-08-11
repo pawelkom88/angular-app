@@ -25,7 +25,16 @@ export const routes: Routes = [
     path: RoutePathsConfig.games,
     title: 'Games',
     component: GamesListComponent,
-    // children: [],
+    children: [
+      {
+        path: 'game/:id',
+        title: 'Game details',
+        loadChildren: () =>
+          import('@/app/pages/game-details/game-details.module').then(
+            (m) => m.GameDetailsModule
+          ),
+      },
+    ],
     canActivate: [AuthGuard],
   },
   {

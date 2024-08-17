@@ -57,3 +57,21 @@ button.primary {
 button.primary:disabled {
   background-color: gray;
 }
+
+input {
+  outline: 1px solid transparent;
+}
+
+input:focus:invalid {
+  outline-color: 1px solid yellow;
+}
+
+input[type="email"]:not(:placeholder-shown):valid,
+input[type="password"]:not(:placeholder-shown):valid {
+  outline-color: limegreen;
+}
+
+input[type="email"]:not(:placeholder-shown):invalid,
+input[type="password"]:not(:placeholder-shown):invalid {
+  outline-color: red;
+}

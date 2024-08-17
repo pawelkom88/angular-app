@@ -32,8 +32,9 @@ import {
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })
-
 export class SignupComponent {
+  passwordRegex = PASSWORD_REGEX;
+  passwordMinLength = PASSWORD_MIN_LENGTH;
   signUpForm: FormGroup = new FormGroup({});
   errorMessage = '';
   successMessage = '';
@@ -77,7 +78,7 @@ export class SignupComponent {
     } else {
       this.errorMessage = '';
     }
-console.log(this.signUpForm.valid)
+    console.log(this.signUpForm.valid);
     const username = this.signUpForm.value.username.trim();
     const password = this.signUpForm.value.password.trim();
 

@@ -18,6 +18,8 @@
     autocomplete="new-password"
     placeholder="Password"
     formControlName="password"
+    [attr.pattern]="passwordRegex"
+    [attr.minlength]="passwordMinLength"
   />
   <label for="confirm-password">Confirm password</label>
   <input
@@ -27,6 +29,9 @@
     autocomplete="new-password"
     placeholder="Confirm password"
     formControlName="confirmPassword"
+    [attr.pattern]="passwordRegex"
+    [attr.minlength]="passwordMinLength"
+
   />
 
   <app-success-message

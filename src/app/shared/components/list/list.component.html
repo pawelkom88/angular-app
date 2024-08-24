@@ -1,4 +1,13 @@
 <main>
-  <app-game-card *ngFor="let game of games; trackBy: trackByGameId" [game]="game">
-  </app-game-card>
+  <ng-container *ngIf="games$ | async as games; else loadingTemplate">
+    <app-game-card
+      *ngFor="let game of games; trackBy: trackByGameId"
+      [game]="game"
+    >
+    </app-game-card>
+  </ng-container>
+
+  <ng-template #loadingTemplate>
+    <p>Loading games...</p>
+  </ng-template>
 </main>

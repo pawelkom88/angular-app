@@ -30,6 +30,7 @@ import { LogoComponent } from '../components/logo/logo.component';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup = new FormGroup({});
+  loading = false;
   errorMessage = '';
 
   private authSubscription: Subscription = new Subscription();
@@ -51,9 +52,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginUser() {
     const username = this.loginForm.value.username.trim();
     const password = this.loginForm.value.password.trim();
-    
+
     this.errorMessage = '';
 
+    this.loading = true;
     this.authSubscription = this.authService
       .findUser({
         username,
@@ -61,7 +63,10 @@ export class LoginComponent implements OnInit, OnDestroy {
       })
       .subscribe({
         next: this.handleRedirectAfterLogin,
-        error: this.handleLogInError,
+        error: (error) => {
+          this.handleLogInError(error), this.cancelLoading;
+        },
+        complete: () => this.cancelLoading,
       });
   }
 
@@ -71,6 +76,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   private handleLogInError = (error: Error) => {
     this.errorMessage = error.message;
+  };
+
+  private cancelLoading = () => {
+    this.loading = false;
   };
 
   ngOnDestroy() {

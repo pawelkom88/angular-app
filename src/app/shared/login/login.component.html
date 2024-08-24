@@ -26,7 +26,10 @@
       [errorMessage]="errorMessage"
     ></app-error-message>
     <button [disabled]="!loginForm.valid" class="primary" type="submit">
-      Login
+      <ng-container *ngIf="loading; else loginText">
+        Logging you in ...
+      </ng-container>
+      <ng-template #loginText>Login</ng-template>
     </button>
   </form>
   <br />

@@ -5,6 +5,11 @@ export type GameImage = {
   author: string;
 };
 
+export type UserGames = {
+  id: number;
+  games: Game[];
+};
+
 export type Game = {
   id: number;
   image: GameImage;

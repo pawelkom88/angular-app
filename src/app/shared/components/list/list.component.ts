@@ -1,6 +1,8 @@
+import { GamesService } from '@/app/core/services/games/games.service';
 import { Game } from '@/app/core/services/games/types';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { GameCardComponent } from '../game-card/game-card.component';
 
 @Component({
@@ -11,24 +13,19 @@ import { GameCardComponent } from '../game-card/game-card.component';
   styleUrl: './list.component.css',
 })
 export class ListComponent {
-  games: Game[] = [
-    {
-      id: 0,
-      title: 'dummy title',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, itaque!',
-      image: {
-        url: 'https://picsum.photos/200/300',
-        author: 'Pawel',
-        width: 200,
-        height: 300,
-      },
-      price: 0,
-    },
-  ];
+  // is it correct initialization ??
+  games$: Observable<Game[]> = new Observable<Game[]>();
+
+  constructor(private readonly gamesService: GamesService) {
+    // Assign the observable directly instead of ngOnInit ?
+    // this.games$ = this.gamesService.getGames();
+  }
+
+  ngOnInit() {
+    this.games$ = this.gamesService.getGames();
+  }
 
   trackByGameId(_: number, game: Game) {
     return game.id;
   }
-  // http call here - tets first
 }

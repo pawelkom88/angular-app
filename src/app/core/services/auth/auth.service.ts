@@ -4,7 +4,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, Observable, throwError } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { delay, map } from 'rxjs/operators';
 import { User, UserCredentials } from './auth.types';
 
 // TODO: introduce delay so loading indicator can be shown
@@ -18,6 +18,7 @@ export class AuthService {
 
   findUser({ username, password }: UserCredentials): Observable<User> {
     return this.http.get<User[]>(`${environment.apiUrl}/users`).pipe(
+      delay(2000),
       map((users: User[]) => {
         const user = users.find(
           (user) => user.username === username && user.password === password

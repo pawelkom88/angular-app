@@ -78,7 +78,7 @@ export class SignupComponent {
     } else {
       this.errorMessage = '';
     }
-    console.log(this.signUpForm.valid);
+
     const username = this.signUpForm.value.username.trim();
     const password = this.signUpForm.value.password.trim();
 

@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './core/services/auth/auth-guard.guard';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
-import { GameDetailsComponent } from './shared/game-details/game-details/game-details.component';
 import { GamesListComponent } from './shared/games-list/games-list.component';
 import { LoginComponent } from './shared/login/login.component';
 import { SignupComponent } from './shared/signup/signup.component';
+import { GameDetailsComponent } from './shared/game-details/game-details.component';
 
 export const RoutePathsConfig = {
   login: 'login',

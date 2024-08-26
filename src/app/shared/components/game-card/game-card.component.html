@@ -14,5 +14,7 @@
   <p class="game-card_description">
     {{ game.description }}
   </p>
-  <a [routerLink]="['', 'game', game.id]" class="game-card_link">details</a>
+  <a [routerLink]="['/' + gameListPath, game.id]" class="game-card_link"
+    >details</a
+  >
 </article>

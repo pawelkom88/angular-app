@@ -1,0 +1,17 @@
+h2 {
+  margin-bottom: 1rem;
+}
+
+img {
+  width: 100%;
+}
+
+figcaption {
+  font-size: 0.7rem;
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+footer {
+  margin-top: 0.5rem;
+}

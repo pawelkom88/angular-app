@@ -1,3 +1,4 @@
+import { RoutePath, RoutePathsConfig } from '@/app/app.routes';
 import { Game } from '@/app/core/services/games/types';
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -10,5 +11,6 @@ import { RouterModule } from '@angular/router';
   styleUrl: './game-card.component.css',
 })
 export class GameCardComponent {
+  gameListPath: RoutePath = RoutePathsConfig.games;
   @Input() game = {} as Game;
 }

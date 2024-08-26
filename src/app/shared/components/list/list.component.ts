@@ -14,14 +14,10 @@ import { GameCardComponent } from '../game-card/game-card.component';
 })
 export class ListComponent {
   // is it correct initialization ??
-  games$: Observable<Game[]> = new Observable<Game[]>();
+  games$: Observable<Game[]>;
 
   constructor(private readonly gamesService: GamesService) {
     // Assign the observable directly instead of ngOnInit ?
-    // this.games$ = this.gamesService.getGames();
-  }
-
-  ngOnInit() {
     this.games$ = this.gamesService.getGames();
   }
 

@@ -10,11 +10,28 @@
             "author": "Alejandro Escamilla",
             "width": 200,
             "height": 300,
-            "url": "https://picsum.photos/200/300"
+            "url": "https://picsum.photos/id/1/200/300"
           },
           "title": "Halo: The Master Chief Collection",
           "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, itaque!",
           "price": 59.99
+        }
+      ]
+    },
+    {
+      "userId": 1,
+      "games": [
+        {
+          "id": 2,
+          "image": {
+            "author": "Pedro Perez",
+            "width": 200,
+            "height": 300,
+            "url": "https://picsum.photos/id/2/200/300"
+          },
+          "title": "Wow Whaaaat Game",
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, itaque!",
+          "price": 29.99
         }
       ]
     }

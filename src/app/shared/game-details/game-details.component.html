@@ -1,0 +1,31 @@
+<section *ngIf="game$ | async as game; else loadingTemplate">
+  <article class="game-card">
+    <header>
+      <h2>{{ game.title }}</h2>
+    </header>
+    <figure>
+      <img
+        src="{{ game.image.url }}"
+        width="{{ game.image.width }}"
+        height="{{ game.image.height }}"
+        alt="Photo by {{ game.image.author }}"
+      />
+      <figcaption>Photo by {{ game.image.author }}</figcaption>
+    </figure>
+    <p>{{ game.description }}</p>
+    <footer>
+      <a [routerLink]="'/' + gameListPath">Go back to list</a>
+    </footer>
+  </article>
+  <!--  separate comp -->
+  <div>comments here</div>
+</section>
+
+<ng-template #loadingTemplate>
+  <p>Loading game details....</p>
+</ng-template>
+
+<!-- // how to hook error message from the service to template? -->
+<ng-template #errorTemplate>
+  <p>Error loading game details. Please try again later.</p>
+</ng-template>

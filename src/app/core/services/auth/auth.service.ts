@@ -52,7 +52,6 @@ export class AuthService {
       .pipe(
         map((user: User) => {
           this.user = user;
-          // this.router.navigate([RoutePathsConfig.login]);
           return user;
         }),
         catchError((error: HttpErrorResponse | Error) => {
